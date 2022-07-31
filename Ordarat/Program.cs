@@ -24,7 +24,7 @@ namespace Ordarat
             {
                 var context = services.GetRequiredService<StroreContext>();
                 await context.Database.MigrateAsync();
-
+                await StoreContextSeed.SeedAsync(context, LoggerVactory);
             }
             catch (Exception ex)
             {
