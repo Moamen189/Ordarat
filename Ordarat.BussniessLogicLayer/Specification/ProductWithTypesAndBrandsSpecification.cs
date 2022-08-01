@@ -15,5 +15,12 @@ namespace Ordarat.BussniessLogicLayer.Specification
             AddInclude(p => p.ProductType);
 
         }
+
+        public ProductWithTypesAndBrandsSpecification(int id):base(P => P.Id == id)
+        {
+            AddInclude(p => p.ProductBrand);
+            AddInclude(p => p.ProductType);
+
+        }
     }
 }

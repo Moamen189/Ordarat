@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Ordarat.Controllers
 {
-   
+
     public class ProductsController : BaseApiController
     {
         private readonly IGenericRepository<Product> _productRepo;
@@ -27,6 +27,15 @@ namespace Ordarat.Controllers
 
 
             return Ok(products);
+        }
+
+        [HttpGet("{id}")]
+
+        public async Task<ActionResult<Product>> GetProduct(int id)
+        {
+            var spec = new ProductWithTypesAndBrandsSpecification(id);
+            var product = await _productRepo.GetWithSpecAsync(spec);
+            return product;
         }
     }
 }
