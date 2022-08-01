@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Ordarat.BussniessLogicLayer.Interfaces;
+using Ordarat.BussniessLogicLayer.Repository;
 using Ordarat.DataAccessLayer;
 using System;
 using System.Collections.Generic;
@@ -34,7 +36,7 @@ namespace Ordarat
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ordarat", Version = "v1" });
             });
-
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddDbContext<StroreContext>(option =>
             {
                 option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
