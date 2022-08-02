@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using Ordarat.BussniessLogicLayer.Interfaces;
 using Ordarat.BussniessLogicLayer.Repository;
 using Ordarat.DataAccessLayer;
+using Ordarat.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,7 @@ namespace Ordarat
         {
 
             services.AddControllers();
+            services.AddAutoMapper(typeof(MappingProfile));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ordarat", Version = "v1" });
