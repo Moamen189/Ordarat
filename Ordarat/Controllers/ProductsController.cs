@@ -18,13 +18,13 @@ namespace Ordarat.Controllers
         private readonly IGenericRepository<ProductBrand> _brandsRepo;
         private readonly IMapper _mapper;
 
-        public IGenericRepository<ProductType> _TypsRepo { get; }
+        public IGenericRepository<ProductType> TypsRepo { get; }
 
         public ProductsController(IGenericRepository<Product> productRepo , IGenericRepository<ProductBrand> BrandsRepo,  IGenericRepository<ProductType> TypsRepo, IMapper mapper)
         {
             _productRepo = productRepo;
             _brandsRepo = BrandsRepo;
-            _TypsRepo = TypsRepo;
+            this.TypsRepo = TypsRepo;
             _mapper = mapper;
         }
 
@@ -73,7 +73,7 @@ namespace Ordarat.Controllers
         public async Task<ActionResult<IReadOnlyList<ProductType>>> GetTyps()
         {
 
-            var typs = await _TypsRepo.GetAllAsync();
+            var typs = await TypsRepo.GetAllAsync();
 
 
             return Ok(typs);

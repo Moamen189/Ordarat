@@ -12,6 +12,10 @@ namespace Ordarat.BussniessLogicLayer.Specification
             var query = InputQuery;
             if (spec.Criteria != null)
                 query = query.Where(spec.Criteria);
+            if (spec.OrderBy != null)
+                query = query.OrderBy(spec.OrderBy);
+            if (spec.OrderByDesending != null)
+                query = query.OrderByDescending(spec.OrderByDesending);
 
             query = spec.Includes.Aggregate(query, (curretQuery, include) => curretQuery.Include(include));
             return query;
