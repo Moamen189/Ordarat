@@ -5,6 +5,7 @@ using Ordarat.BussniessLogicLayer.Interfaces;
 using Ordarat.BussniessLogicLayer.Specification;
 using Ordarat.DataAccessLayer.Entities;
 using Ordarat.Dtos;
+using Ordarat.Errors;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -39,6 +40,8 @@ namespace Ordarat.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse) ,StatusCodes.Status404NotFound)]
 
         public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
         {
