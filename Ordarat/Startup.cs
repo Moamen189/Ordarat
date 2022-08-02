@@ -11,7 +11,9 @@ using Microsoft.OpenApi.Models;
 using Ordarat.BussniessLogicLayer.Interfaces;
 using Ordarat.BussniessLogicLayer.Repository;
 using Ordarat.DataAccessLayer;
+using Ordarat.Errors;
 using Ordarat.Helpers;
+using Ordarat.MiddleWares;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,17 +45,40 @@ namespace Ordarat
             {
                 option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.InvalidModelStateResponseFactory = actionContext =>
+                {
+                    var errors = actionContext.ModelState.Where(M => M.Value.Errors.Count > 0)
+                            .SelectMany(M => M.Value.Errors)
+                             .Select(E=> E.ErrorMessage).ToArray();
+
+                    var errorResponse = new ApiValidationErrorResponse()
+                    {
+                        Errors = errors
+                    };
+                    return new BadRequestObjectResult(errorResponse);
+                    
+                };
+            });
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMiddleware<ExceptionMiddleware>();
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ordarat v1"));
-            } 
+
+
+            }
+
+            app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
             app.UseHttpsRedirection();
 
