@@ -9,7 +9,11 @@ namespace Ordarat.BussniessLogicLayer.Specification
 {
     public class ProductWithTypesAndBrandsSpecification : BaseSpecification<Product>
     {
-        public ProductWithTypesAndBrandsSpecification(string sort)
+        public ProductWithTypesAndBrandsSpecification(string sort, int? brandId, int? typeId )
+            :base(p => 
+            (!brandId.HasValue || brandId == p.ProductBrandId) &&
+            (!typeId.HasValue || typeId == p.ProductTypeId) 
+            )
         {
             AddInclude(p => p.ProductBrand);
             AddInclude(p => p.ProductType);
