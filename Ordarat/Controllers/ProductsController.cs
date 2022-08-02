@@ -14,11 +14,16 @@ namespace Ordarat.Controllers
     public class ProductsController : BaseApiController
     {
         private readonly IGenericRepository<Product> _productRepo;
+        private readonly IGenericRepository<ProductBrand> _brandsRepo;
         private readonly IMapper _mapper;
 
-        public ProductsController(IGenericRepository<Product> productRepo , IMapper mapper)
+        public IGenericRepository<ProductType> _TypsRepo { get; }
+
+        public ProductsController(IGenericRepository<Product> productRepo , IGenericRepository<ProductBrand> BrandsRepo,  IGenericRepository<ProductType> TypsRepo, IMapper mapper)
         {
             _productRepo = productRepo;
+            _brandsRepo = BrandsRepo;
+            _TypsRepo = TypsRepo;
             _mapper = mapper;
         }
 
@@ -35,11 +40,33 @@ namespace Ordarat.Controllers
 
         [HttpGet("{id}")]
 
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
         {
             var spec = new ProductWithTypesAndBrandsSpecification(id);
             var product = await _productRepo.GetWithSpecAsync(spec);
-            return product;
+            return Ok(_mapper.Map <Product , ProductToReturnDto>(product));
+        }
+
+        [HttpGet("brands")]
+
+        public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetBrands()
+        {
+            
+            var brands = await _brandsRepo.GetAllAsync();
+
+
+            return Ok(brands);
+        }
+
+        [HttpGet("types")]
+
+        public async Task<ActionResult<IReadOnlyList<ProductType>>> GetTyps()
+        {
+
+            var typs = await _TypsRepo.GetAllAsync();
+
+
+            return Ok(typs);
         }
     }
 }
