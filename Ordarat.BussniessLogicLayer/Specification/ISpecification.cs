@@ -14,5 +14,10 @@ namespace Ordarat.BussniessLogicLayer.Specification
 
         public List<Expression<Func<T, object>>> Includes { get; set; }
 
+        public Expression<Func<T, object>> OrderBy { get; set; }
+        public Expression<Func<T, object>> OrderByDesending { get; set; }
+
+
+
     }
 }
