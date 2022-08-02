@@ -47,11 +47,15 @@ namespace Ordarat.Controllers
         {
             var spec = new ProductWithTypesAndBrandsSpecification(id);
             var product = await _productRepo.GetWithSpecAsync(spec);
-            return Ok(_mapper.Map <Product , ProductToReturnDto>(product));
+            var productDto = _mapper.Map<Product, ProductToReturnDto>(product);
+            if(productDto == null)
+                return NotFound(new ApiResponse(404));
+            return Ok(productDto);
         }
 
         [HttpGet("brands")]
-
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetBrands()
         {
             
@@ -62,6 +66,8 @@ namespace Ordarat.Controllers
         }
 
         [HttpGet("types")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
 
         public async Task<ActionResult<IReadOnlyList<ProductType>>> GetTyps()
         {
