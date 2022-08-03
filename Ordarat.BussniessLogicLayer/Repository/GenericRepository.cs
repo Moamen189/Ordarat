@@ -30,6 +30,9 @@ namespace Ordarat.BussniessLogicLayer.Repository
         public async Task<T> GetAsync(int id)
             => await _context.Set<T>().FindAsync(id);
 
+        public async Task<int> GetCountAsync(ISpecification<T> spec)
+       =>  await ApplySpecifications(spec).CountAsync();
+
         public async Task<T> GetWithSpecAsync(ISpecification<T> spec)
                    => await ApplySpecifications(spec).FirstOrDefaultAsync();
 

@@ -17,6 +17,12 @@ namespace Ordarat.BussniessLogicLayer.Specification
         public Expression<Func<T, object>> OrderBy { get; set; }
         public Expression<Func<T, object>> OrderByDesending { get; set; }
 
+        public int Take { get; set; }
+
+        public int Skip { get; set; }
+
+        public bool IsPagingEnabled{ get; set; }
+
 
 
     }

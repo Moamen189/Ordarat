@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Ordarat.BussniessLogicLayer.Interfaces;
 using Ordarat.BussniessLogicLayer.Specification;
+using Ordarat.BussniessLogicLayer.Specification.ProductSpecification;
 using Ordarat.DataAccessLayer.Entities;
 using Ordarat.Dtos;
 using Ordarat.Errors;
+using Ordarat.Helpers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -30,14 +32,17 @@ namespace Ordarat.Controllers
 
         [HttpGet]
 
-        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts(string sort ,int? brandId , int? typeId)
+        public async Task<ActionResult<IReadOnlyList<Pagination<ProductToReturnDto>>>> GetProducts([FromQuery]ProductSpecParams productParams)
         {
 
-            var spec = new ProductWithTypesAndBrandsSpecification(sort , brandId , typeId);
+            var spec = new ProductWithTypesAndBrandsSpecification(productParams);
+            var countSpec = new ProductWithFilterForCountSpecification(productParams);
+            var totalItem =await _productRepo.GetCountAsync(countSpec);
             var products = await _productRepo.GetAllWithSpecAsync(spec);
 
-
-            return Ok(_mapper.Map<IReadOnlyList<Product> , IReadOnlyList<ProductToReturnDto>>(products));
+            var Data = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products);
+           
+            return Ok(new Pagination<ProductToReturnDto>(productParams.PageIndex , productParams.PageSize, totalItem, Data));
         }
 
         [HttpGet("{id}")]

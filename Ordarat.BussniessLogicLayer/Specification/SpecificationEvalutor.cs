@@ -17,6 +17,9 @@ namespace Ordarat.BussniessLogicLayer.Specification
             if (spec.OrderByDesending != null)
                 query = query.OrderByDescending(spec.OrderByDesending);
 
+            //if (spec.IsPagingEnabled)
+            //    query = query.Skip(spec.Skip).Take(spec.Take);
+
             query = spec.Includes.Aggregate(query, (curretQuery, include) => curretQuery.Include(include));
             return query;
         }
