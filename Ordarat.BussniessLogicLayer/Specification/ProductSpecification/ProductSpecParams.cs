@@ -12,7 +12,7 @@ namespace Ordarat.BussniessLogicLayer.Specification.ProductSpecification
 
         public int PageIndex { get; set; } = 1;
 
-        private int pageSize;
+        private int pageSize = 1;
 
         public int PageSize
         {
@@ -26,5 +26,14 @@ namespace Ordarat.BussniessLogicLayer.Specification.ProductSpecification
         public int? TypeId { get; set; }
 
         public int? BrandId { get; set; }
+
+        private string search;
+
+        public string Search
+        {
+            get { return search; }
+            set { search = value.ToLower(); }
+        }
+
     }
 }

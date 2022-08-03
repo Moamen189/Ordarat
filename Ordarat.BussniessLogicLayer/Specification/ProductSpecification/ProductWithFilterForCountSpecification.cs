@@ -10,9 +10,11 @@ namespace Ordarat.BussniessLogicLayer.Specification.ProductSpecification
     public class ProductWithFilterForCountSpecification : BaseSpecification<Product>
     {
         public ProductWithFilterForCountSpecification(ProductSpecParams productParams)
-            : base(p =>
-             (!productParams.BrandId.HasValue || productParams.BrandId == p.ProductBrandId) &&
-             (!productParams.TypeId.HasValue || productParams.TypeId == p.ProductTypeId)
+            : base(
+                  p =>
+                  (string.IsNullOrEmpty(productParams.Search) || p.Name.ToLower().Contains(productParams.Search))&&
+                    (!productParams.BrandId.HasValue || productParams.BrandId == p.ProductBrandId) &&
+                    (!productParams.TypeId.HasValue || productParams.TypeId == p.ProductTypeId)
             )
         {
 

@@ -23,6 +23,7 @@ namespace Ordarat.BussniessLogicLayer.Specification
 
         public bool IsPagingEnabled{ get; set; }
 
+        
 
 
     }
