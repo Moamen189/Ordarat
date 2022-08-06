@@ -41,13 +41,14 @@ namespace Ordarat
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ordarat", Version = "v1" });
             });
+            //services.AddScoped(typeof(IBasketRepository) , typeof(BasketRepository));
+            //services.AddScoped(typeof(IBasketRepository), typeof(BasketRepository));
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddDbContext<StroreContext>(option =>
             {
                 option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddScoped(typeof(IBasketRepository) , typeof(BasketRepository));
 
             services.AddSingleton<IConnectionMultiplexer>(s =>
             {
