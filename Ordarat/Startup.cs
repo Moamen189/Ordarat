@@ -14,6 +14,7 @@ using Ordarat.DataAccessLayer;
 using Ordarat.Errors;
 using Ordarat.Helpers;
 using Ordarat.MiddleWares;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,12 @@ namespace Ordarat
             services.AddDbContext<StroreContext>(option =>
             {
                 option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
+
+            services.AddSingleton<IConnectionMultiplexer>(s =>
+            {
+                var connection = ConfigurationOptions.Parse(Configuration.GetConnectionString("Redis"));
+                return ConnectionMultiplexer.Connect(connection);
             });
 
             services.Configure<ApiBehaviorOptions>(options =>
