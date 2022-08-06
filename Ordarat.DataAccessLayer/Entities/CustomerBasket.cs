@@ -14,5 +14,11 @@ namespace Ordarat.DataAccessLayer.Entities
         public List<BasketItem> Items { get; set; } = new List<BasketItem>();
 
 
+        public CustomerBasket(string id)
+        {
+           Id = id;
+        }
+
+
     }
 }

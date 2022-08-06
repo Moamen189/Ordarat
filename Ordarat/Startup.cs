@@ -47,6 +47,8 @@ namespace Ordarat
                 option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            services.AddScoped(typeof(IBasketRepository) , typeof(BasketRepository));
+
             services.AddSingleton<IConnectionMultiplexer>(s =>
             {
                 var connection = ConfigurationOptions.Parse(Configuration.GetConnectionString("Redis"));
@@ -69,6 +71,8 @@ namespace Ordarat
                     
                 };
             });
+
+            
            
         }
 
