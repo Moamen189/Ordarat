@@ -1,4 +1,6 @@
-﻿namespace Ordarat.DataAccessLayer.Entities.Identity
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Ordarat.DataAccessLayer.Entities.Identity
 {
     public class Address
     {
@@ -12,6 +14,8 @@
         public string City { get; set; }
 
         public string Streeet { get; set; }
+        [Required]
+        public string AppUserId { get; set; }
 
         public AppUser User { get; set; }
 

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,7 +12,10 @@ using Microsoft.OpenApi.Models;
 using Ordarat.BussniessLogicLayer.Interfaces;
 using Ordarat.BussniessLogicLayer.Repository;
 using Ordarat.DataAccessLayer;
+using Ordarat.DataAccessLayer.Entities.Identity;
+using Ordarat.DataAccessLayer.Identity;
 using Ordarat.Errors;
+using Ordarat.Extensions;
 using Ordarat.Helpers;
 using Ordarat.MiddleWares;
 using StackExchange.Redis;
@@ -50,11 +54,19 @@ namespace Ordarat
             });
 
 
+          
+
             services.AddSingleton<IConnectionMultiplexer>(s =>
             {
                 var connection = ConfigurationOptions.Parse(Configuration.GetConnectionString("Redis"));
                 return ConnectionMultiplexer.Connect(connection);
             });
+
+            services.AddDbContext<AppIdentityDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection"));
+            });
+
 
             services.Configure<ApiBehaviorOptions>(options =>
             {
@@ -72,6 +84,11 @@ namespace Ordarat
                     
                 };
             });
+
+            services.AddIdentityServices();
+
+
+
 
             //services.AddScoped(typeof(IBasketRepository), typeof(BasketRepository));
 
