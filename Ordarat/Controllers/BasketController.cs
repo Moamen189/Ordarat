@@ -17,7 +17,7 @@ namespace Ordarat.Controllers
             _basketRepository = basketRepository;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
 
         public async Task<ActionResult<CustomerBasket>> GetBasket(string basaketId)
         {

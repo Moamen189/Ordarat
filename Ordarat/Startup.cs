@@ -41,8 +41,8 @@ namespace Ordarat
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ordarat", Version = "v1" });
             });
-            //services.AddScoped(typeof(IBasketRepository) , typeof(BasketRepository));
-            //services.AddScoped(typeof(IBasketRepository), typeof(BasketRepository));
+            //
+           
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddDbContext<StroreContext>(option =>
             {
@@ -73,8 +73,10 @@ namespace Ordarat
                 };
             });
 
-            
-           
+            //services.AddScoped(typeof(IBasketRepository), typeof(BasketRepository));
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
