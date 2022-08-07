@@ -11,6 +11,11 @@ namespace Ordarat.Extensions
         {
             services.AddIdentity<AppUser, IdentityRole>(options =>
             {
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = true;
+                
 
             }).AddEntityFrameworkStores<AppIdentityDbContext>();
             services.AddAuthentication();
