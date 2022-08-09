@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Ordarat.BussniessLogicLayer.Interfaces;
 using Ordarat.BussniessLogicLayer.Repository;
+using Ordarat.BussniessLogicLayer.Services;
 using Ordarat.DataAccessLayer;
 using Ordarat.DataAccessLayer.Entities.Identity;
 using Ordarat.DataAccessLayer.Identity;
@@ -53,6 +54,8 @@ namespace Ordarat
                 option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            services.AddScoped(typeof(ITokenServices), typeof(TokenServices));
+
 
           
 
@@ -85,7 +88,7 @@ namespace Ordarat
                 };
             });
 
-            services.AddIdentityServices();
+            services.AddIdentityServices(Configuration);
 
 
 
@@ -114,7 +117,8 @@ namespace Ordarat
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Ordarat.BussniessLogicLayer.Interfaces;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Ordarat.Controllers
 {
-
+    [Authorize]
     public class ProductsController : BaseApiController
     {
         private readonly IGenericRepository<Product> _productRepo;

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Ordarat.BussniessLogicLayer.Interfaces;
 using Ordarat.DataAccessLayer.Entities.Identity;
 using Ordarat.Dtos;
 using Ordarat.Errors;
@@ -13,11 +14,13 @@ namespace Ordarat.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly ITokenServices _tokenServices;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager , ITokenServices tokenServices)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+           _tokenServices = tokenServices;
         }
 
         [HttpPost("login")]
@@ -36,7 +39,7 @@ namespace Ordarat.Controllers
 
                 DisplayName = user.DisplayName,
                 Email = user.Email,
-                Token = "This Will Be Token"
+                Token = await _tokenServices.CreateToken(user, _userManager)
             });
         }
 
@@ -73,7 +76,8 @@ namespace Ordarat.Controllers
 
                 DisplayName = user.DisplayName,
                 Email = user.Email,
-                Token = "This Will Be Token"
+                Token = await _tokenServices.CreateToken(user, _userManager)
+
             });
 
         }
