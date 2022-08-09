@@ -1,4 +1,5 @@
-﻿using Ordarat.DataAccessLayer.Entities.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using Ordarat.DataAccessLayer.Entities.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Ordarat.BussniessLogicLayer.Interfaces
 {
     public interface ITokenServices
     {
-        Task<string> CreateToken(AppUser user);
+        Task<string> CreateToken(AppUser user , UserManager<AppUser> userManager);
     }
 }
