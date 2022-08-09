@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Ordarat.DataAccessLayer.Entities.Identity;
 using Ordarat.DataAccessLayer.Identity;
@@ -18,7 +19,11 @@ namespace Ordarat.Extensions
                 
 
             }).AddEntityFrameworkStores<AppIdentityDbContext>();
-            services.AddAuthentication();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+
+                });
 
             return services;
         }
