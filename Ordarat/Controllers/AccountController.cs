@@ -55,7 +55,8 @@ namespace Ordarat.Controllers
 
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
-
+            if(CheckEmailExists(registerDto.Email).Result.Value)
+                return BadRequest(new ApiValidationErrorResponse() { Errors = new [] {" This Email is already in used"}});
             var user = new AppUser()
             {
                 Email = registerDto.Email,
@@ -121,10 +122,17 @@ namespace Ordarat.Controllers
             user.Address = _mapper.Map<AddressDto, Address>(newAddress);
             var result = await _userManager.UpdateAsync(user);
             if(!result.Succeeded)
-                return BadRequest(new ApiValidationErrorResponse() { Errors = new [] {"An Erroe Occured with updating user adress"}});
+                return BadRequest(new ApiValidationErrorResponse() { Errors = new [] {"An Error Occured with updating user adress"}});
             return Ok(newAddress);
 
 
+        }
+
+        [HttpGet("emailexists")]
+
+        public async Task<ActionResult<bool>> CheckEmailExists(string email)
+        {
+            return await _userManager.FindByEmailAsync(email) != null;
         }
 
 
