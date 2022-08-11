@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Ordarat.BussniessLogicLayer.Interfaces;
 using Ordarat.DataAccessLayer.Entities.Identity;
 using Ordarat.Dtos;
 using Ordarat.Errors;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Ordarat.Controllers
@@ -80,6 +82,21 @@ namespace Ordarat.Controllers
 
             });
 
+        }
+        [Authorize]
+        [HttpGet]
+
+        public async Task<ActionResult<UserDto>> GetCurrentUser()
+        {
+            var email = User.FindFirstValue(ClaimTypes.Email);
+
+            var user = await _userManager.FindByIdAsync(email);
+            return Ok(new UserDto()
+            {
+                DisplayName =user.DisplayName,
+                Email=user.Email,
+                Token = await _tokenServices.CreateToken(user, _userManager)
+            });
         }
 
 
