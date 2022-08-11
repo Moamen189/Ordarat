@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Ordarat.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ProductsController : BaseApiController
     {
         private readonly IGenericRepository<Product> _productRepo;

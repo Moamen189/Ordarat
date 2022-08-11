@@ -22,7 +22,18 @@ namespace Ordarat.Extensions
                 
 
             }).AddEntityFrameworkStores<AppIdentityDbContext>();
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            services.AddAuthentication(/*JwtBearerDefaults.AuthenticationScheme*/
+                options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+
+                }
+                
+                
+                
+                )
                 .AddJwtBearer(options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters()
