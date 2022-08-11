@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using Ordarat.BussniessLogicLayer.Interfaces;
 using Ordarat.DataAccessLayer.Entities.Identity;
 using Ordarat.Dtos;
 using Ordarat.Errors;
+using Ordarat.Extensions;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -17,12 +19,14 @@ namespace Ordarat.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ITokenServices _tokenServices;
+        private readonly IMapper _mapper;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager , ITokenServices tokenServices)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager , ITokenServices tokenServices , IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
            _tokenServices = tokenServices;
+            _mapper = mapper;
         }
 
         [HttpPost("login")]
@@ -99,11 +103,35 @@ namespace Ordarat.Controllers
             });
         }
 
+        [Authorize]
+        [HttpGet("address")]
+        public async Task<ActionResult<AddressDto>> GetUserAddress()
+        {
+            var user = await _userManager.FindUserWithAddressByEmailAsync(User);
+            return Ok(_mapper.Map<Address,AddressDto>(user.Address));
+
+
+        }
+
+        [Authorize]
+        [HttpPut("address")]
+        public async Task<ActionResult<AddressDto>> UpdayeUserAddress(AddressDto newAddress)
+        {
+            var user = await _userManager.FindUserWithAddressByEmailAsync(User);
+            user.Address = _mapper.Map<AddressDto, Address>(newAddress);
+            var result = await _userManager.UpdateAsync(user);
+            if(!result.Succeeded)
+                return BadRequest(new ApiValidationErrorResponse() { Errors = new [] {"An Erroe Occured with updating user adress"}});
+            return Ok(newAddress);
+
+
+        }
+
 
 
 
 
     }
 
-    
+
 }
