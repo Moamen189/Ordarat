@@ -130,7 +130,7 @@ namespace Ordarat.Controllers
 
         [HttpGet("emailexists")]
 
-        public async Task<ActionResult<bool>> CheckEmailExists(string email)
+        public async Task<ActionResult<bool>> CheckEmailExists([FromQuery]string email)
         {
             return await _userManager.FindByEmailAsync(email) != null;
         }
