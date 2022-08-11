@@ -15,6 +15,9 @@ namespace Ordarat.Helpers
                 .ForMember(D => D.PictureUrl, O => O.MapFrom<PictureUrlResolver>());
 
             CreateMap<Address, AddressDto>().ReverseMap();
+            CreateMap<BasketItemDto, BasketItem>();
+            CreateMap<CustomerBasketDto, CustomerBasket>();
+
 
 
 
