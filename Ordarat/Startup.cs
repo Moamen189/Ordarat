@@ -93,7 +93,7 @@ namespace Ordarat
 
 
 
-            //services.AddScoped(typeof(IBasketRepository), typeof(BasketRepository));
+            services.AddScoped(typeof(IBasketRepository), typeof(BasketRepository));
 
 
 
