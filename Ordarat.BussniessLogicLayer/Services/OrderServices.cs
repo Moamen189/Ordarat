@@ -12,18 +12,21 @@ namespace Ordarat.BussniessLogicLayer.Services
     public class OrderServices : IOrderServices
     {
         private readonly IBasketRepository _basketRepository;
-        private readonly IGenericRepository<Product> _productRepo;
-        private readonly IGenericRepository<DelivaryMethod> _delivaryMethodRepo;
-        private readonly IGenericRepository<Order> _orderRepo;
+        private readonly IUnitOfWork unitOfWork;
+        //private readonly IGenericRepository<Product> _productRepo;
+        //private readonly IGenericRepository<DelivaryMethod> _delivaryMethodRepo;
+        //private readonly IGenericRepository<Order> _orderRepo;
 
-        public OrderServices(IBasketRepository basketRepository , IGenericRepository<Product> ProductRepo , IGenericRepository<DelivaryMethod> DelivaryMethodRepo
-             , IGenericRepository<Order> orderRepo
+        public OrderServices(IBasketRepository basketRepository  //IGenericRepository<Product> ProductRepo , IGenericRepository<DelivaryMethod> DelivaryMethodRepo
+        //     , IGenericRepository<Order> orderRepo
+                , IUnitOfWork unitOfWork
             )
         {
             _basketRepository = basketRepository;
-            _productRepo = ProductRepo;
-            _delivaryMethodRepo = DelivaryMethodRepo;
-            _orderRepo = orderRepo;
+            this.unitOfWork = unitOfWork;
+            //_productRepo = ProductRepo;
+            //_delivaryMethodRepo = DelivaryMethodRepo;
+            //_orderRepo = orderRepo;
         }
         public async Task<Order> CreateOrderAsync(string buyerEmail, string basketId, int deliveryMethodId, Address ShipToAddress)
         {
@@ -32,19 +35,22 @@ namespace Ordarat.BussniessLogicLayer.Services
             var orderItems = new List<OrderItem>();
             foreach (var item in basket.Items)
             {
-                var product = await _productRepo.GetAsync(item.Id);
+                var product = await unitOfWork.Repository<Product>().GetAsync(item.Id);
                 var productItemOrdered = new ProductItemOrdered(product.Id, product.Name, product.PictureUrl);
                 var orderItem = new OrderItem(productItemOrdered, product.Price, item.Quantity);
                 orderItems.Add(orderItem);
             }
 
-            var delivaryMethod = await _delivaryMethodRepo.GetAsync(deliveryMethodId);
+            var delivaryMethod = await unitOfWork.Repository<DelivaryMethod>().GetAsync(deliveryMethodId);
 
             var subtotal = orderItems.Sum(item => item.Price * item.Quantitiy);
 
             var order = new Order(buyerEmail, ShipToAddress, delivaryMethod, subtotal , orderItems);
 
-            await _orderRepo.Add(order);
+            await unitOfWork.Repository<Order>().Add(order);
+            int result = await unitOfWork.Complete();
+            if(result <=0)
+                return null;
             return order;
         }
 

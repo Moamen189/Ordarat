@@ -57,7 +57,8 @@ namespace Ordarat
             services.AddScoped(typeof(ITokenServices), typeof(TokenServices));
 
 
-          
+            services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+
 
             services.AddSingleton<IConnectionMultiplexer>(s =>
             {
