@@ -18,6 +18,13 @@ namespace Ordarat.BussniessLogicLayer.Interfaces
 
         Task<IReadOnlyList<T>> GetAllWithSpecAsync(ISpecification<T> spec);
 
-        Task<int> GetCountAsync(ISpecification<T> spec);                        
+        Task<int> GetCountAsync(ISpecification<T> spec);
+
+        Task Add(T Entity);
+        void Update(T Entity);
+
+        void Delete(T Entity);
+
+
     }
 }

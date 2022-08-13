@@ -19,6 +19,13 @@ namespace Ordarat.BussniessLogicLayer.Repository
         {
             _context = context;
         }
+
+        public async Task Add(T Entity)
+          => await _context.Set<T>().AddAsync(Entity);
+
+        public void Delete(T Entity)
+       => _context.Set<T>().Remove(Entity);
+
         public async Task<IReadOnlyList<T>> GetAllAsync()
                 => await _context.Set<T>().ToListAsync();
 
@@ -36,6 +43,8 @@ namespace Ordarat.BussniessLogicLayer.Repository
         public async Task<T> GetWithSpecAsync(ISpecification<T> spec)
                    => await ApplySpecifications(spec).FirstOrDefaultAsync();
 
+        public void Update(T Entity)
+            => _context.Set<T>().Update(Entity);
 
         private IQueryable<T> ApplySpecifications(ISpecification<T> spec)
         {
