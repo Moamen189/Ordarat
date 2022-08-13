@@ -14,11 +14,11 @@ namespace Ordarat.Helpers
                 .ForMember(D => D.ProductBrand, O => O.MapFrom(S => S.ProductBrand.Name))
                 .ForMember(D => D.PictureUrl, O => O.MapFrom<PictureUrlResolver>());
 
-            CreateMap<Address, AddressDto>().ReverseMap();
+            CreateMap<DataAccessLayer.Entities.Identity.Address, AddressDto>().ReverseMap();
             CreateMap<BasketItemDto, BasketItem>();
             CreateMap<CustomerBasketDto, CustomerBasket>();
 
-
+            CreateMap<AddressDto, DataAccessLayer.Entities.Order_Aggregate.Address>();
 
 
         }

@@ -89,7 +89,7 @@ namespace Ordarat
             });
 
             services.AddIdentityServices(Configuration);
-
+            services.AddScoped<IOrderServices, OrderServices>();
 
 
 
