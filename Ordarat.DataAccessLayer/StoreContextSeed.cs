@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Ordarat.DataAccessLayer.Entities;
+using Ordarat.DataAccessLayer.Entities.Order_Aggregate;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -40,6 +41,15 @@ namespace Ordarat.DataAccessLayer
                     var Products = JsonSerializer.Deserialize<List<Product>>(ProductsData);
                     foreach (var Product in Products)
                         context.Product.Add(Product);
+                    await context.SaveChangesAsync();
+                }
+
+                if (!context.DeliveryMethods.Any())
+                {
+                    var DeliveryMethodsData = File.ReadAllText("../Ordarat.DataAccessLayer/Data/Seeds/delivery.json");
+                    var DeliveryMethods = JsonSerializer.Deserialize<List<DelivaryMethod>>(DeliveryMethodsData);
+                    foreach (var DeliveryMethod in DeliveryMethods)
+                        context.DeliveryMethods.Add(DeliveryMethod);
                     await context.SaveChangesAsync();
                 }
 
