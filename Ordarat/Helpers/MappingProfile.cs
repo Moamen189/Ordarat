@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Ordarat.DataAccessLayer.Entities;
 using Ordarat.DataAccessLayer.Entities.Identity;
+using Ordarat.DataAccessLayer.Entities.Order_Aggregate;
 using Ordarat.Dtos;
 
 namespace Ordarat.Helpers
@@ -19,6 +20,10 @@ namespace Ordarat.Helpers
             CreateMap<CustomerBasketDto, CustomerBasket>();
 
             CreateMap<AddressDto, DataAccessLayer.Entities.Order_Aggregate.Address>();
+
+            CreateMap<Order, OrderToReturnDto>()
+                .ForMember(d => d.DelivaryMethod, O => O.MapFrom(S => S.DelivaryMethod.ShortName))
+                .ForMember(d => d.DeliveryCost, O => O.MapFrom(S => S.DelivaryMethod.Cost));
 
 
         }

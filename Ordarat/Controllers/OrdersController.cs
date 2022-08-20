@@ -37,7 +37,7 @@ namespace Ordarat.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<Order>>>GetOrdersForUser()
+        public async Task<ActionResult<IReadOnlyList<OrderToReturnDto>>>GetOrdersForUser()
         {
             var buyerEmail = User.FindFirstValue(ClaimTypes.Email);
             var orders = await _orderService.GetOrdersForUserAsync(buyerEmail);
@@ -45,7 +45,7 @@ namespace Ordarat.Controllers
         }
 
         [HttpGet("{id}")] // /{id}
-        public async Task<ActionResult<Order>> GetOrderForUser(int id)
+        public async Task<ActionResult<OrderToReturnDto>> GetOrderForUser(int id)
         {
             var buyerEmail = User.FindFirstValue(ClaimTypes.Email);
             var orders = await _orderService.GetOrdersbyIdForUser(id,buyerEmail);
