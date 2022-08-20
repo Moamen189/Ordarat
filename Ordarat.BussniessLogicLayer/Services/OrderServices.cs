@@ -55,11 +55,9 @@ namespace Ordarat.BussniessLogicLayer.Services
             return order;
         }
 
-     
-
-        public Task<IReadOnlyList<DelivaryMethod>> GetDeliveryMethodsAsync(string buyerEmail)
+        public async Task<IReadOnlyList<DelivaryMethod>> GetDeliveryMethodsAsync()
         {
-            throw new NotImplementedException();
+           return await unitOfWork.Repository<DelivaryMethod>().GetAllAsync();
         }
 
         public async Task<Order> GetOrdersbyIdForUser(int orderId, string buyerEmail)

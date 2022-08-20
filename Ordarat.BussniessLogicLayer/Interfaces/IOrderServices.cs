@@ -13,7 +13,7 @@ namespace Ordarat.BussniessLogicLayer.Interfaces
         Task<IReadOnlyList<Order>> GetOrdersForUserAsync(string buyerEmail);
         Task<Order> GetOrdersbyIdForUser(int orderId , string buyerEmail);
 
-        Task<IReadOnlyList<DelivaryMethod>> GetDeliveryMethodsAsync(string buyerEmail);
+        Task<IReadOnlyList<DelivaryMethod>> GetDeliveryMethodsAsync();
 
       
 
