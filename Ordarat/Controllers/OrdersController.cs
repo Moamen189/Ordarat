@@ -41,7 +41,7 @@ namespace Ordarat.Controllers
         {
             var buyerEmail = User.FindFirstValue(ClaimTypes.Email);
             var orders = await _orderService.GetOrdersForUserAsync(buyerEmail);
-            return Ok(orders);
+            return Ok(_mapper.Map<IReadOnlyList<Order>, IReadOnlyList<OrderToReturnDto>>(orders));
         }
 
         [HttpGet("{id}")] // /{id}
@@ -49,7 +49,7 @@ namespace Ordarat.Controllers
         {
             var buyerEmail = User.FindFirstValue(ClaimTypes.Email);
             var orders = await _orderService.GetOrdersbyIdForUser(id,buyerEmail);
-            return Ok(orders);
+            return Ok(_mapper.Map<Order, OrderToReturnDto>(orders));
         }
 
         [HttpGet("deliverymethods")] // /deliverymethods

@@ -24,6 +24,16 @@ namespace Ordarat.Helpers
             CreateMap<Order, OrderToReturnDto>()
                 .ForMember(d => d.DelivaryMethod, O => O.MapFrom(S => S.DelivaryMethod.ShortName))
                 .ForMember(d => d.DeliveryCost, O => O.MapFrom(S => S.DelivaryMethod.Cost));
+            CreateMap<OrderItem, OrderItemDto>()
+                .ForMember(D => D.ProductId, O => O.MapFrom(S => S.ItemOrder.ProductId))
+                .ForMember(D => D.ProductName, O => O.MapFrom(S => S.ItemOrder.ProductName))
+
+                .ForMember(D => D.PictureUrl, O => O.MapFrom(S => S.ItemOrder.PictureUrl))
+                .ForMember(D => D.PictureUrl, O => O.MapFrom <OrderItemUrlResolver>());
+
+
+
+
 
 
         }

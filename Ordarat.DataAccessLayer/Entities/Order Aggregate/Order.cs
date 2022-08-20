@@ -24,9 +24,9 @@ namespace Ordarat.DataAccessLayer.Entities.Order_Aggregate
 
         public string BuyerEmail { get; set; }
         public Address ShipToAddress { get; set; }
-        public DelivaryMethod DelivaryMethod { get; set; }
         public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
+        public DelivaryMethod DelivaryMethod { get; set; }
 
         public int PaymentIntentId { get; set; }
         public decimal Subtotal { get; set; }
