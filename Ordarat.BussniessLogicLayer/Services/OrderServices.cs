@@ -1,4 +1,5 @@
 ﻿using Ordarat.BussniessLogicLayer.Interfaces;
+using Ordarat.BussniessLogicLayer.Specification.Order_Specification;
 using Ordarat.DataAccessLayer.Entities;
 using Ordarat.DataAccessLayer.Entities.Order_Aggregate;
 using System;
@@ -64,9 +65,11 @@ namespace Ordarat.BussniessLogicLayer.Services
             throw new NotImplementedException();
         }
 
-        public Task<IReadOnlyList<Order>> GetOrdersForUserAsync(string buyerEmail)
+        public async Task<IReadOnlyList<Order>> GetOrdersForUserAsync(string buyerEmail)
         {
-            throw new NotImplementedException();
+            var spec = new OrderWithItemAndDeleveryMethodSpecificatioin(buyerEmail);
+            var orders = await unitOfWork.Repository<Order>().GetAllWithSpecAsync(spec);
+            return orders;
         }
     }
 }

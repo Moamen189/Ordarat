@@ -6,6 +6,7 @@ using Ordarat.BussniessLogicLayer.Interfaces;
 using Ordarat.DataAccessLayer.Entities.Order_Aggregate;
 using Ordarat.Dtos;
 using Ordarat.Errors;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -34,6 +35,15 @@ namespace Ordarat.Controllers
              
             return Ok(result);  
         }
+
+        [HttpGet]
+        public async Task<ActionResult<IReadOnlyList<Order>>>GetOrdersForUser()
+        {
+            var buyerEmail = User.FindFirstValue(ClaimTypes.Email);
+            var orders = await _orderService.GetOrdersForUserAsync(buyerEmail);
+            return Ok(orders);
+        }
+
 
     }
 }
