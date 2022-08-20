@@ -44,6 +44,12 @@ namespace Ordarat.Controllers
             return Ok(orders);
         }
 
-
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Order>> GetOrderForUser(int id)
+        {
+            var buyerEmail = User.FindFirstValue(ClaimTypes.Email);
+            var orders = await _orderService.GetOrdersbyIdForUser(id,buyerEmail);
+            return Ok(orders);
+        }
     }
 }
