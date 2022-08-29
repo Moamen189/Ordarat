@@ -13,5 +13,6 @@ namespace Ordarat.BussniessLogicLayer.Interfaces
     {
         Task<CustomerBasket> CreateOrUpdatePaymentIntent(string basketId);
         Task<Order> UpdateOrderPaymentSucceded(string paymentIntentId);
+        Task<Order> UpdateOrderPaymentFailed(string paymentIntentId)
     }
 }
