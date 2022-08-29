@@ -14,17 +14,21 @@ namespace Ordarat.BussniessLogicLayer.Services
     {
         private readonly IBasketRepository _basketRepository;
         private readonly IUnitOfWork unitOfWork;
+        private readonly IPaymentServices paymentServices;
+
         //private readonly IGenericRepository<Product> _productRepo;
         //private readonly IGenericRepository<DelivaryMethod> _delivaryMethodRepo;
         //private readonly IGenericRepository<Order> _orderRepo;
 
         public OrderServices(IBasketRepository basketRepository  //IGenericRepository<Product> ProductRepo , IGenericRepository<DelivaryMethod> DelivaryMethodRepo
         //     , IGenericRepository<Order> orderRepo
-                , IUnitOfWork unitOfWork
+                , IUnitOfWork unitOfWork ,
+                    IPaymentServices paymentServices
             )
         {
             _basketRepository = basketRepository;
             this.unitOfWork = unitOfWork;
+            this.paymentServices = paymentServices;
             //_productRepo = ProductRepo;
             //_delivaryMethodRepo = DelivaryMethodRepo;
             //_orderRepo = orderRepo;
@@ -43,10 +47,21 @@ namespace Ordarat.BussniessLogicLayer.Services
             }
 
             var delivaryMethod = await unitOfWork.Repository<DelivaryMethod>().GetAsync(deliveryMethodId);
-
+            // calculate subtotal
             var subtotal = orderItems.Sum(item => item.Price * item.Quantitiy);
 
-            var order = new Order(buyerEmail, ShipToAddress, delivaryMethod, subtotal , orderItems);
+            // check if Order is Existed or not
+            var spec = new OrderWithItemAndDeleveryMethodSpecificatioin(basket.PaymentIntentId);
+            var existingOrder = await unitOfWork.Repository<Order>().GetWithSpecAsync(spec);
+            if(existingOrder != null)
+            {
+                unitOfWork.Repository<Order>().Delete(existingOrder);
+                await paymentServices.CreateOrUpdatePaymentIntent(basketId);
+
+
+            }
+            //create Order
+            var order = new Order(buyerEmail, ShipToAddress, delivaryMethod, subtotal , orderItems , basket.PaymentIntentId);
 
             await unitOfWork.Repository<Order>().Add(order);
             int result = await unitOfWork.Complete();

@@ -13,13 +13,15 @@ namespace Ordarat.DataAccessLayer.Entities.Order_Aggregate
 
         }
 
-        public Order(string buyerEmail, Address shipToAddress, DelivaryMethod delivaryMethod, decimal subtotal, List<OrderItem> items)
+        public Order(string buyerEmail, Address shipToAddress, DelivaryMethod delivaryMethod, decimal subtotal, List<OrderItem> items , string paymentIntentId)
         {
             BuyerEmail = buyerEmail;
             ShipToAddress = shipToAddress;
             DelivaryMethod = delivaryMethod;
             Subtotal = subtotal;
             Items = items;
+           PaymentIntentId = paymentIntentId;
+            
         }
 
         public string BuyerEmail { get; set; }
