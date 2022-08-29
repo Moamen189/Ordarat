@@ -16,7 +16,7 @@ namespace Ordarat.Controllers
         {
             _paymentService = paymentService;
         }
-        [HttpPost("{basketId")]
+        [HttpPost("{basketId}")]
         public async Task<ActionResult<CustomerBasket>> CreateOrUpdatePaymentIntent(string basketId)
         {
             var basket = await _paymentService.CreateOrUpdatePaymentIntent(basketId);
