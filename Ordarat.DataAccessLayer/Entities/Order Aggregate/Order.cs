@@ -28,7 +28,7 @@ namespace Ordarat.DataAccessLayer.Entities.Order_Aggregate
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
         public DelivaryMethod DelivaryMethod { get; set; }
 
-        public int PaymentIntentId { get; set; }
+        public string PaymentIntentId { get; set; }
         public decimal Subtotal { get; set; }
         public List<OrderItem> Items { get; set; }
 

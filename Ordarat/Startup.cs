@@ -96,6 +96,13 @@ namespace Ordarat
 
 
             services.AddScoped(typeof(IBasketRepository), typeof(BasketRepository));
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
+                });
+            });
 
 
 
@@ -120,6 +127,7 @@ namespace Ordarat
 
             app.UseRouting();
             app.UseStaticFiles();
+            app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -129,4 +137,4 @@ namespace Ordarat
             });
         }
     }
-}
+} 
