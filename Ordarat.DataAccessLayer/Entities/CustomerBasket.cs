@@ -19,6 +19,12 @@ namespace Ordarat.DataAccessLayer.Entities
            Id = id;
         }
 
+        public int? DeliveryMethodId { get; set; }
+        public string PaymentIntentId { get; set; }
+        public string ClientSecret { get; set; }
+        public decimal ShippingPrice { get; set; }
+
+
 
     }
 }
