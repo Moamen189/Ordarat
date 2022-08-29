@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Ordarat.BussniessLogicLayer.Interfaces;
 using Ordarat.DataAccessLayer.Entities;
 using Ordarat.Errors;
-using System.Threading.Tasks;
+using System.Threading.Tasks; 
 
 namespace Ordarat.Controllers
 {
@@ -16,6 +17,7 @@ namespace Ordarat.Controllers
         {
             _paymentService = paymentService;
         }
+        [Authorize]
         [HttpPost("{basketId}")]
         public async Task<ActionResult<CustomerBasket>> CreateOrUpdatePaymentIntent(string basketId)
         {
