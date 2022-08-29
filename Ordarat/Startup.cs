@@ -55,6 +55,7 @@ namespace Ordarat
             });
 
             services.AddScoped(typeof(ITokenServices), typeof(TokenServices));
+            services.AddScoped<IPaymentServices ,PaymentServices>();
 
 
             services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
