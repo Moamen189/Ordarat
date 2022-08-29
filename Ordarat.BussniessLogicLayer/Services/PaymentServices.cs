@@ -94,5 +94,16 @@ namespace Ordarat.BussniessLogicLayer.Services
             await _unitOfWork.Complete();
             return order;
         }
+
+        public async Task<Order> UpdateOrderPaymentFailed(string paymentIntentId)
+        {
+            var spec = new OrderWithItemByPaymentIntentSpecification(paymentIntentId);
+            var order = await _unitOfWork.Repository<Order>().GetWithSpecAsync(spec);
+            if (order == null) return null;
+            order.Status = OrderStatus.PaymentFailed;
+            _unitOfWork.Repository<Order>().Update(order);
+            await _unitOfWork.Complete();
+            return order;
+        }
     }
 }
