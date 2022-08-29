@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Ordarat.BussniessLogicLayer.Interfaces;
+using Ordarat.BussniessLogicLayer.Specification;
 using Ordarat.DataAccessLayer.Entities;
 using Ordarat.DataAccessLayer.Entities.Order_Aggregate;
 using Stripe;
@@ -81,6 +82,17 @@ namespace Ordarat.BussniessLogicLayer.Services
             return basket;
 
             
+        }
+
+        public async Task<Order> UpdateOrderPaymentSucceded(string paymentIntentId)
+        {
+            var spec = new OrderWithItemByPaymentIntentSpecification(paymentIntentId);
+            var order = await _unitOfWork.Repository<Order>().GetWithSpecAsync(spec);
+            if (order == null) return null;
+            order.Status = OrderStatus.PaymentRecived;
+            _unitOfWork.Repository<Order>().Update(order);
+            await _unitOfWork.Complete();
+            return order;
         }
     }
 }
