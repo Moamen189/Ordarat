@@ -8,10 +8,10 @@ namespace Ordarat.Dtos
 
         public string DisplayName { get; set; }
 
-        [Required]
+       
         public string FisrtName { get; set; }
 
-        [Required]
+      
 
         public string LastName { get; set; }
 
