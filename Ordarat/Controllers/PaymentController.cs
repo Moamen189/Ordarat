@@ -18,6 +18,7 @@ namespace Ordarat.Controllers
     {
         private readonly IPaymentServices _paymentService;
         private readonly ILogger _logger;
+        private const string _webhook = "whsec_1d2d4c462169bc9b7eed13dc8c581b1b3deec7b51d4473ff66b4d61d3e82d8e6";
 
         public PaymentController(IPaymentServices paymentService , ILogger<PaymentController> logger)
         {
@@ -42,7 +43,7 @@ namespace Ordarat.Controllers
             try
             {
                 var stripeEvent = EventUtility.ConstructEvent(json,
-                    Request.Headers["Stripe-Signature"], "");
+                    Request.Headers["Stripe-Signature"], _webhook);
                 PaymentIntent intent;
                 Order order;
                 switch (stripeEvent.Type)
