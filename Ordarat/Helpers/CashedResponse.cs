@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using Ordarat.BussniessLogicLayer.Interfaces;
 using System;
@@ -14,9 +16,27 @@ namespace Ordarat.Helpers
         {
             _timeToLiveInSecond = timeToLiveInSecond;
         }
-        public Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+        public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var cachedService = context.HttpContext.RequestServices.GetRequiredService<IResponseCashService>();
+            var casheKey = GenerateCasheKeyFromRequest(context.HttpContext.Request);
+            var cashedResponse = await cachedService.GetCashedResponse(casheKey);
+            if (!string.IsNullOrEmpty(cashedResponse))
+            {
+                var contentResult = new ContentResult()
+                {
+                    Content = cashedResponse,
+                    ContentType = "application/json",
+                    StatusCode = 200
+                };
+                context.Result = contentResult;
+                return;
+            }
+        }
+
+        private string GenerateCasheKeyFromRequest(HttpRequest request)
+        {
+            return "";
         }
     }
 }
