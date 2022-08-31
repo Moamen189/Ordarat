@@ -47,7 +47,7 @@ namespace Ordarat
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ordarat", Version = "v1" });
             });
             //
-           
+            services.AddSingleton<IResponseCashService , ResponseCashService>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddDbContext<StroreContext>(option =>
             {

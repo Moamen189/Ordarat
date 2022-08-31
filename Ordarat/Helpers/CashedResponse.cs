@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.DependencyInjection;
+using Ordarat.BussniessLogicLayer.Interfaces;
 using System;
 using System.Threading.Tasks;
 
@@ -14,7 +16,7 @@ namespace Ordarat.Helpers
         }
         public Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            throw new NotImplementedException();
+            var cachedService = context.HttpContext.RequestServices.GetRequiredService<IResponseCashService>();
         }
     }
 }
