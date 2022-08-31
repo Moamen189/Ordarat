@@ -32,6 +32,8 @@ namespace Ordarat.Helpers
                 context.Result = contentResult;
                 return;
             }
+
+            await next();
         }
 
         private string GenerateCasheKeyFromRequest(HttpRequest request)
