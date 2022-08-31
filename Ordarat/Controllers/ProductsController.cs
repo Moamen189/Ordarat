@@ -30,7 +30,7 @@ namespace Ordarat.Controllers
             this.TypsRepo = TypsRepo;
             _mapper = mapper;
         }
-        [CashedResponse]
+        [CashedResponse(600)]
         [HttpGet]
 
         public async Task<ActionResult<IReadOnlyList<Pagination<ProductToReturnDto>>>> GetProducts([FromQuery]ProductSpecParams productParams)
