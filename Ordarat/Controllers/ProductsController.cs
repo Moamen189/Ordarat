@@ -45,6 +45,7 @@ namespace Ordarat.Controllers
            
             return Ok(new Pagination<ProductToReturnDto>(productParams.PageIndex , productParams.PageSize, totalItem, Data));
         }
+        [CashedResponse(600)]
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -59,6 +60,7 @@ namespace Ordarat.Controllers
                 return NotFound(new ApiResponse(404));
             return Ok(productDto);
         }
+        [CashedResponse(600)]
 
         [HttpGet("brands")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -71,6 +73,7 @@ namespace Ordarat.Controllers
 
             return Ok(brands);
         }
+        [CashedResponse(600)]
 
         [HttpGet("types")]
         [ProducesResponseType(StatusCodes.Status200OK)]
