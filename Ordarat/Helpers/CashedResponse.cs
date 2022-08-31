@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using Ordarat.BussniessLogicLayer.Interfaces;
 using System;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Ordarat.Helpers
@@ -40,7 +42,13 @@ namespace Ordarat.Helpers
 
         private string GenerateCasheKeyFromRequest(HttpRequest request)
         {
-            return "";
+            var keyBuilder = new StringBuilder();
+            keyBuilder.Append($"{request.Path}");
+            foreach (var (key , value) in request.Query.OrderBy(X => X.Key))
+            {
+                keyBuilder.Append($"|{key}--{value}");
+            }
+            return keyBuilder.ToString();
         }
     }
 }
