@@ -46,7 +46,7 @@ namespace Ordarat.Helpers
             keyBuilder.Append($"{request.Path}");
             foreach (var (key , value) in request.Query.OrderBy(X => X.Key))
             {
-                keyBuilder.Append($"|{key}--{value}");
+                keyBuilder.Append($"|{key}--{value}"); //key value pair
             }
             return keyBuilder.ToString();
         }
