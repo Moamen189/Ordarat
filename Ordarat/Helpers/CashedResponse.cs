@@ -33,7 +33,9 @@ namespace Ordarat.Helpers
                 return;
             }
 
-            await next();
+            var excutedEndPointContext =  await next();
+            if(excutedEndPointContext.Result is OkObjectResult okObjectResult )
+                await cachedService.CasheResponseAsync(casheKey , okObjectResult.Value , TimeSpan.FromSeconds(_timeToLiveInSecond));
         }
 
         private string GenerateCasheKeyFromRequest(HttpRequest request)
