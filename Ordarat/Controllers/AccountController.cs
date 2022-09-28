@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Ordarat.Controllers
 {
+    //[Authorize]
 
     public class AccountController : BaseApiController
     {
