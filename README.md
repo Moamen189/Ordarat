@@ -12,6 +12,8 @@ Ordarat is Cloning Talabat E-Commerce using : Web API CRUD Operations with (Post
 
 -Data Seeding. -Service concept to fetch an API. 
 
+-Stripe Payment Gateway
+
 -routing for SPA concept and routing guard. -pipes and directives like (*NgFor and *NgIf).
 
 
