@@ -35,7 +35,7 @@
 ### 1- Home 
 In Home page Show The user  all Brands in the Web Site and other Details on This.
 
-### 2- Shops
+### 2- Shops // Payment Gateway // Product in Details
 This part of the application is concerned with displaying all kinds of clothes and accessories for programming languages and frameworks that the user can like. The user buys one of them and determines the quantity or keeps it through the basket for a certain period, and he can also increase the quantities, and after that it is purchased using the strip payment method, and this part of the site can be visible to all people, even non-email owners
 ### 3- Errors
 This Page To Show The Error or issue That The User Made it
