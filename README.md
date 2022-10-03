@@ -7,7 +7,7 @@
 # Programming Language , Tools and  IDEs Used
 ### Programming Languages , Tools :
 # Client Side :
-- HTML & CSS ( Markup Language).
+- HTML ( Markup Language).
 - SASS
 - BootStrab
 -Typescript 
