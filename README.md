@@ -44,6 +44,13 @@ This Page To Show The Error or issue That The User Made it
 it's Responsible for Sign Up the user To New Account To buy Some Things
 ### 5- Login
 it's Responsible for Sign In the user To His Account To buy Some Things
+### 6- Account
+it's Responsible for Dispaly All Required Informaion about his User
+### 7- Basket
+it's Responsible for Dispaly All Products that the user save it to buy using In Memory DataBase
+### 8- Orders
+### 9- Shared
+
 
 # App Logo and Icon
 ![Ordarat](https://user-images.githubusercontent.com/79394414/192775188-6381321d-9798-4f60-8593-b902e17ec1d8.png)
