@@ -53,8 +53,12 @@ it's Responsible for Dispaly All Products with salary and counts
 ### 9- Shared
 
 # Hosting
-Internet Information Services (IIS)
+### Internet Information Services (IIS)
+Internet Information Services (IIS) is a flexible, general-purpose web server from Microsoft that runs on Windows systems to serve requested HTML pages or files.
 
+An IIS web server accepts requests from remote client computers and returns the appropriate response. This basic functionality allows web servers to share and deliver information across local area networks (LAN), such as corporate intranets, and wide area networks (WAN), such as the Internet.
+
+A web server can deliver information to users in several forms, such as static webpages coded in HTML; through file exchanges as downloads and uploads; and text documents, image files and more.
 # App Logo and Icon
 ![Ordarat](https://user-images.githubusercontent.com/79394414/192775188-6381321d-9798-4f60-8593-b902e17ec1d8.png)
 
