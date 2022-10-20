@@ -24,7 +24,7 @@
 - Service concept to fetch an API. 
 -Stripe Payment Gateway
 -Generic Repository and Redis in Memory DB and specification Design Pattern.
--Applied Microsoft Identity (Authentication Authorization). 
+-Applied Microsoft Identity (Authentication Authorization) [JWT]. 
 ### IDEs :
 - VS (Visual Studio Code) IDE.
 - VS (Visual Studio ) IDE.
