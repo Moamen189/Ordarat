@@ -1,6 +1,6 @@
 
 #  Ordarat
-### Ordarat is Cloning Talabat E-Commerce That's Show and Salles Programing Language and Frameworks Wears 
+### Ordarat is Cloning Talabat E-Commerce That's Show and Salles Programing Language and Frameworks Wears and Accessories
 ### using : Web API CRUD Operations with (Postman Test , Swagger Documentation , CORS Policy). 
 
 
@@ -51,7 +51,7 @@ it's Responsible for Dispaly All Products that the user save it to buy using In 
 ### 8- Orders
 it's Responsible for Dispaly All Products with salary and counts
 ### 9- Shared
-
+it's Component Has Shared Values in Many Component
 # Hosting
 ### Internet Information Services (IIS)
 Internet Information Services (IIS) is a flexible, general-purpose web server from Microsoft that runs on Windows systems to serve requested HTML pages or files.
