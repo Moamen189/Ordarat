@@ -12,10 +12,10 @@
 - BootStrab
 -Typescript 
 - Jquery
--Angular 12. 
--Angular form validation
--routing for SPA concept and routing guard. 
--pipes and directives like (*NgFor and *NgIf).
+- Angular 12. 
+- Angular form validationAngular form validation
+- routing for SPA concept and routing guard. 
+- pipes and directives like (*NgFor and *NgIf).
 # Server Side : 
 - C#
 - Microsoft SQl Server 
